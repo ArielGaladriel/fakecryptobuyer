@@ -1,0 +1,32 @@
+{% extends "fakecryptobuyerApp/main.html" %}
+
+
+{% block content %}
+<main class="form-signin" style="width: 30%; height: auto; position: absolute;  right: 30%; left: 30%;">
+<h1 class="h3 mb-3 fw-normal text-center">Registration</h1>
+<form method="POST" class="registration" >
+    {% csrf_token %}
+    <div class="form-floating">
+        <input type="email" name='email' id="floatingInputEmail" class="form-control" required>
+        <label for="floatingInputEmail">Email address</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" name="password1" id="floatingPassword1" class="form-control" required>
+        <label for="floatingPassword1">Password</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password2" id="floatingPassword2" class="form-control" required>
+        <label for="floatingPassword2">Confirm your password</label>
+    </div>
+    <div class="form-floating">
+        <input type="text" name='first_name' class="form-control" id="floatingInputName" required>
+        <label for="floatingInputName">Your name</label>
+    </div>
+
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Registration</button>
+  </form>
+    </main>
+{% endblock %}
+{% block rates %}
+{% endblock %}

@@ -1,0 +1,16 @@
+[
+  {
+    "model": "fakecryptobuyerApp.CryptoData",
+    "pk": "bitcoin",
+    "fields": {
+      "cost": 20000
+    }
+  },
+  {
+    "model": "fakecryptobuyerApp.CryptoData",
+    "pk": "etherium",
+    "fields": {
+      "cost": 22000
+    }
+  }
+]
