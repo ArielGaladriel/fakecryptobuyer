@@ -7,7 +7,15 @@ import json
 
 def main_page(request):
     context = CryptoData.objects.all()[1:11]
-    return render(request, 'fakecryptobuyerApp/main.html', {"context": context})
+    if request.user.is_authenticated:
+        user_pocket = CustomUser.objects.get(id=request.user.id).pocket.values()
+        for crypto_item in user_pocket:
+            item_quantity = float(crypto_item['quantity'])
+            item_cost = float(CryptoData.objects.get(human_name = crypto_item['readable_name']).cost)
+            crypto_item.update({"total_cost": str(round(item_quantity * item_cost, 2))})
+        return render(request, 'fakecryptobuyerApp/main.html', {"context": context, "user_pocket": user_pocket})
+    else:
+        return render(request, 'fakecryptobuyerApp/main.html', {"context": context})
 
 def new_user(request):
     if request.method == "POST":
@@ -28,13 +36,17 @@ def buy(request):
             name = request.POST['currencies']
             quantity = request.POST['quantity']
             readable_name = CryptoData.objects.get(crypto_name=name).human_name
-            temp_pocket = {name: {'readable_name': readable_name, 'quantity': quantity}}
             current_user = request.user
             user_data = CustomUser.objects.get(id=current_user.id)
+            cost = CryptoData.objects.get(crypto_name=name).cost
             try:
-                user_data.pocket[name] = {'readable_name': readable_name, 'quantity': str(int(user_data.pocket[name]['quantity']) + int(quantity))}
+                temp_quantity = quantity
+                quantity = int(user_data.pocket[name]['quantity']) + int(quantity)
+                spend = str(round(float(user_data.pocket[name]['spend']) + float(cost*int(temp_quantity)),2))
             except KeyError:
-                user_data.pocket[name] = {'readable_name': readable_name, 'quantity': str(quantity)}
+                quantity = int(quantity)
+                spend = str(round(cost*quantity,2))
+            user_data.pocket[name] = {'readable_name': readable_name, 'quantity': quantity, 'spend': spend}
             user_data.save()
             return redirect('main')
     else:

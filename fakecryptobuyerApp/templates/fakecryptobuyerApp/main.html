@@ -32,10 +32,11 @@
            <span class="fs-5" style="width: 290px;">{{user.first_name}}, your portfolio is:</span>
            <hr>
                <ul class="nav nav-pills flex-column mb-auto">
-                   {% for key, value in user.pocket.items %}
+                   {% for item in user_pocket %}
                    <li class="navbar-text">
-                       <svg class="bi pe-none me-2" width="10" height="16"></svg>
-                     <b>{{ value.readable_name }} :</b> {{ value.quantity }}
+                           <b>{{ item.readable_name }} : {{ item.quantity }}</b>
+                      <span style="color: green;"><br>Spend: {{ item.spend }}$</br></span>
+                       <span style="color: blue;">Current cost: {{ item.total_cost }}$</span>
                    </li>
                     {% endfor %}
                    <li>
@@ -61,11 +62,11 @@
         <div class="row mb-3">
             {% for i in context %}
       <div class="col-md-3 themed-grid-col">1 {{ i.human_name }}</div>
-      <div class="col-md-8 themed-grid-col">{{ i.cost }}$</div>
+            <div class="col-md-8 themed-grid-col">{{ i.cost }}$</div>
             {% endfor %}
+            {% endblock %}
             </p>
     </div>
         </div>
-    {% endblock %}
     </body>
 </html>
