@@ -9,6 +9,9 @@
     <div class="form-floating">
         <input type="email" name='email' id="floatingInputEmail" class="form-control" required>
         <label for="floatingInputEmail">Email address</label>
+        {% if form.errors %}
+        <span style="color: red;"><p>{{form.errors.email}}</p></span>
+        {% endif %}
     </div>
     <div class="form-floating">
         <input type="password" name="password1" id="floatingPassword1" class="form-control" required>
@@ -17,13 +20,16 @@
     <div class="form-floating">
       <input type="password" name="password2" id="floatingPassword2" class="form-control" required>
         <label for="floatingPassword2">Confirm your password</label>
+        {% if form.errors %}
+        <span style="color: red;"><p>{{form.errors.password2}}</p></span>
+        {% endif %}
     </div>
     <div class="form-floating">
         <input type="text" name='first_name' class="form-control" id="floatingInputName" required>
         <label for="floatingInputName">Your name</label>
     </div>
 
-
+<p>{{form.password1.help_text}}</p>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Registration</button>
   </form>
     </main>

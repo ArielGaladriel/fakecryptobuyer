@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import CustomUserCreationForm, Bin
 from .models import CryptoData, CustomUser
+from django.contrib.auth.decorators import login_required
 import requests
 import json
 
@@ -30,6 +31,7 @@ def new_user(request):
         form = CustomUserCreationForm()
     return render(request, 'fakecryptobuyerApp/registration.html', {'form':form})
 
+@login_required
 def buy(request):
     context = CryptoData.objects.all()[1:11]
     if request.method == "POST":

@@ -5,7 +5,7 @@
     <main class="form-signin" style="width: 30%; height: auto; position: absolute;  right: 30%; left: 30%;">
         <h1 class="h3 mb-3 fw-normal text-center">Enter your email and password</h1>
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <span style="color: red;"><p>Your username and password didn't match. Please try again.</p></span>
     {% endif %}
 
     <form method="post" class="login">
