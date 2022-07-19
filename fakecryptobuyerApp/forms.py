@@ -24,4 +24,4 @@ class Bin(forms.Form):
     human_name = ['--Choose currency--'] + [row['human_name'] for row in model]
     choises = zip(crypto_name, human_name)
     currencies = forms.ChoiceField(choices = choises)
-    quantity = forms.IntegerField(min_value=0, max_value=10000, initial=0, widget=forms.TextInput)
+    quantity = forms.IntegerField(min_value=0, max_value=10000, initial=0, widget=forms.NumberInput)
