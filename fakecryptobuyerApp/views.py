@@ -51,8 +51,13 @@ def buy(request):
             return redirect('main')
     else:
         form = Bin()
-    return render(request,'fakecryptobuyerApp/purchase.html', {'form': form, 'context': context})
+    extra_content = currency_list()
+    return render(request,'fakecryptobuyerApp/purchase.html', {'form': form, 'context': context, 'extra_content':extra_content})
 
+def currency_list():
+    list_of_currencies = list(CryptoData.objects.values_list("crypto_name",flat=True))[:11]
+    list_of_costs =[float(CryptoData.objects.get(crypto_name=i).cost) for i in list_of_currencies]
+    return {x: y for x,y in zip(list_of_currencies,list_of_costs)}
 
 def get_list():
     model = CryptoData.objects.all()

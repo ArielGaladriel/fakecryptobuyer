@@ -1,13 +1,42 @@
 {% extends "fakecryptobuyerApp/main.html" %}
 
 {% block content %}
-<p>Buy more</p>
+<p><b>Buy more!</b></p>
 <form method="POST" class="buy">{% csrf_token %}
 {{ form }}
+<span hidden id="result" ></span>
+<span hidden id="result1" ></span>
+<span id="result2"></span>
 <input type="submit" value="buy">
     </form>
+
 <p><a href="{% url 'main' %}">Back</a></p>
+
+   <script>
+   {
+   document.getElementById('id_currencies').addEventListener('change', function() {
+   var n = String(this.value);
+   var m = {{extra_content|safe}};
+   var b = m[n];
+   document.getElementById("result").innerHTML = b;
+   func();
+   })
+   document.getElementById('id_quantity').addEventListener('change', function() {
+   var a = this.value;
+   document.getElementById("result1").innerHTML = a;
+   func();
+   })
+   var func = function(){
+   var x = document.getElementById("result").innerHTML;
+   var y = document.getElementById("result1").innerHTML;
+   var d =(x*y).toFixed(2);
+   document.getElementById("result2").innerHTML = "= "+d+" $";
+   }
+   }
+    </script>
+
 {% endblock %}
 
 {% block user %}
 {% endblock %}
+
