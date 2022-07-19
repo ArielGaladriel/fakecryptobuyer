@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from .forms import CustomUserCreationForm, Bin
 from .models import CryptoData, CustomUser
 import requests
 import json
+
 
 def main_page(request):
     context = CryptoData.objects.all()[1:11]
@@ -48,7 +50,8 @@ def buy(request):
                 spend = str(round(cost*quantity,2))
             user_data.pocket[name] = {'readable_name': readable_name, 'quantity': quantity, 'spend': spend}
             user_data.save()
-            return redirect('main')
+            messages.success(request, 'Your purchase has been successful')
+            return redirect('buy')
     else:
         form = Bin()
     extra_content = currency_list()
